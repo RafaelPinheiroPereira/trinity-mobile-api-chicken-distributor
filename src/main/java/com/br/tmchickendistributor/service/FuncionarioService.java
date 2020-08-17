@@ -11,22 +11,18 @@ import org.springframework.stereotype.Service;
 import com.br.tmchickendistributor.entity.Cliente;
 import com.br.tmchickendistributor.entity.Funcionario;
 import com.br.tmchickendistributor.entity.RecebimentoDTO;
-import com.br.tmchickendistributor.entity.Rota;
 import com.br.tmchickendistributor.entity.Venda;
 import com.br.tmchickendistributor.error.MyResourceNotFoundException;
 import com.br.tmchickendistributor.repository.ClienteRepository;
 import com.br.tmchickendistributor.repository.FuncionarioRepository;
 import com.br.tmchickendistributor.repository.PedidoRepository;
 import com.br.tmchickendistributor.repository.RecebimentoRepository;
-import com.br.tmchickendistributor.repository.RotaRepository;
 
 @Service
 public class FuncionarioService {
 
     @Autowired
     FuncionarioRepository funcionarioRespository;
-    @Autowired
-    RotaRepository rotaRepository;
 
     @Autowired
     PedidoRepository pedidoRepository;
@@ -49,12 +45,6 @@ public class FuncionarioService {
 
     public long pesquisarCodigoMaximoDeVendaDoFuncionario(Funcionario funcionario) {
         return funcionarioRespository.pequisarMaximoIdVenda(funcionario.getId(), funcionario.getIdEmpresa());
-    }
-
-    public List<Rota> consultarRotas(double id) {
-        List<Rota> rotas = rotaRepository.pesquisarRotaPorFuncionario(id);
-        return rotas;
-
     }
 
     public List<RecebimentoDTO> consultarRecebimentos(long id, long idNucleo, long idEmpresa) {
