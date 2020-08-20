@@ -31,6 +31,7 @@ public class Venda implements Serializable {
     private long idEmpresa;
 
     @Column(name = "vendat")
+
     private Date dataVenda;
 
     @Column(name = "funcod")

@@ -1,5 +1,9 @@
 package com.br.tmchickendistributor;
 
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +26,11 @@ public class AplicationStart extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(AplicationStart.class, args);
+    }
+
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
     }
 
 }
