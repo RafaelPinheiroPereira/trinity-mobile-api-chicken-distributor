@@ -14,9 +14,9 @@ public class EmpresaService {
     @Autowired
     EmpresaRepository empresaRespository;
 
-    public Empresa verificarStatusDaEmpresa(String cnpj, Date dataAtual) {
+    public Empresa verificarStatusDaEmpresa(String cnpj, Date dataAtual, String mac) {
         // TODO Auto-generated method stub
-        return empresaRespository.verificarStatusDaEmpresa(cnpj, dataAtual);
+        return empresaRespository.verificarStatusDaEmpresa(cnpj, dataAtual, mac);
     }
 
 }

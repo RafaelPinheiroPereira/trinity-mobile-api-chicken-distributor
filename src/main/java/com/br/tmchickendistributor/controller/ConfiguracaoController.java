@@ -35,7 +35,7 @@ public class ConfiguracaoController {
         throws ParseException {
         Date dataAtual = DataUtil.formatarDateParaddMMyyyyhhmm(new Date(System.currentTimeMillis()));
 
-        Optional<Empresa> optionalEmpresa = Optional.ofNullable(configuracaoService.verificarAtivacaoDaEmpresa(cnpj, dataAtual));
+        Optional<Empresa> optionalEmpresa = Optional.ofNullable(configuracaoService.verificarAtivacaoDaEmpresa(cnpj, dataAtual, mac));
 
         if (optionalEmpresa.isPresent()) {
             // acesso autorizado

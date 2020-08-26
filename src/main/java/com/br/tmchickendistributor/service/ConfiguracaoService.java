@@ -29,14 +29,14 @@ public class ConfiguracaoService {
         return nucleoService.pesquisarNucleosAtivos(cnpj, dataAtual);
     }
 
-    public Empresa verificarAtivacaoDaEmpresa(String cnpj, Date dataAtual) {
-
-        return empresaService.verificarStatusDaEmpresa(cnpj, dataAtual);
-    }
-
     public List<Dispositivo> pesquisarDispositivosAtivos(String mac, Date dataAtual) {
         // TODO Auto-generated method stub
         return dispositivoService.pesquisarDispositivosAtivos(mac, dataAtual);
+    }
+
+    public Empresa verificarAtivacaoDaEmpresa(String cnpj, Date dataAtual, String mac) {
+
+        return empresaService.verificarStatusDaEmpresa(cnpj, dataAtual, mac);
     }
 
 }
