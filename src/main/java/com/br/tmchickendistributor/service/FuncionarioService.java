@@ -57,6 +57,16 @@ public class FuncionarioService {
         return recebimentoDTOs;
     }
 
+    public List<RecebimentoDTO> consultarRecebimentos(long id, long idNucleo, long idEmpresa, long idCliente) {
+
+        List<Venda> vendas = vendaService.pesquisarRecebimentosDoCliente(id, idNucleo, idEmpresa, idCliente);
+        List<RecebimentoDTO> recebimentoDTOs = new ArrayList<RecebimentoDTO>();
+        for (Venda venda : vendas) {
+            recebimentoDTOs.add(RecebimentoDTO.transformaEmRecebimentoDTO(venda));
+        }
+        return recebimentoDTOs;
+    }
+
     public Funcionario pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(double id, long idEmpresa) {
 
         return Optional.ofNullable(funcionarioRespository.pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(id, idEmpresa))

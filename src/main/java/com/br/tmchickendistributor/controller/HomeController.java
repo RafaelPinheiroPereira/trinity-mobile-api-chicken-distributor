@@ -31,10 +31,10 @@ public class HomeController {
     @GetMapping("/recebimentos")
     @ResponseBody
     public ResponseEntity<Importacao> realizarImportacao(@RequestParam(value = "id") long id, @RequestParam(value = "idEmpresa") long idEmpresa,
-        @RequestParam(value = "idNucleo") long idNucleo) {
+        @RequestParam(value = "idNucleo") long idNucleo, @RequestParam(value = "idCliente") long idCliente) {
 
         Importacao importacao = new Importacao();
-        importacao.setRecebimentosDTO(funcionarioService.consultarRecebimentos(id, idNucleo, idEmpresa));
+        importacao.setRecebimentosDTO(funcionarioService.consultarRecebimentos(id, idNucleo, idEmpresa, idCliente));
         return ResponseEntity.status(HttpStatus.OK).body(importacao);
 
     }

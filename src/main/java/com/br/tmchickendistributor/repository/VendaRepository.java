@@ -17,6 +17,11 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
         nativeQuery = true)
     public List<Venda> pesquisarTodosRecebimentosDoFuncionario(long idNucleo, long idEmpresa);
 
+    @Query(value = "SELECT v.* FROM vendas v  "
+        + "WHERE  v.ventot >v.venamo and  v.nuccod=?1 and v.empcod=?2 and v.clicod=?3 and v.funcod=?4",
+        nativeQuery = true)
+    public List<Venda> pesquisarTodosRecebimentosDoCliente(long idNucleo, long idEmpresa, long idCliente, long idFuncionario);
+
     @Query(value = "SELECT max(v.vendtsync) FROM vendas v "
         + "WHERE  v.funcod=?1  and v.empcod=?2 ",
         nativeQuery = true)

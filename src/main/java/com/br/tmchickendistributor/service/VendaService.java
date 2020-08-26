@@ -21,6 +21,12 @@ public class VendaService {
 
     }
 
+    public List<Venda> pesquisarRecebimentosDoCliente(long idFuncionario, long idNucleo, long idEmpresa, long idCliente) {
+
+        return vendaRepository.pesquisarTodosRecebimentosDoCliente(idNucleo, idEmpresa, idCliente, idFuncionario);
+
+    }
+
     public LocalDateTime pesquisarDataMaximaUltimaSincronizacao(double id, long idEmpresa) {
         // TODO Auto-generated method stub
         return vendaRepository.pesquisarDataDaUltimaSincronizacao(id, idEmpresa);
