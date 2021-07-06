@@ -21,71 +21,73 @@ import com.br.tmchickendistributor.repository.RecebimentoRepository;
 @Service
 public class FuncionarioService {
 
-    @Autowired
-    FuncionarioRepository funcionarioRespository;
+	@Autowired
+	FuncionarioRepository funcionarioRespository;
 
-    @Autowired
-    PedidoRepository pedidoRepository;
+	@Autowired
+	PedidoRepository pedidoRepository;
 
-    @Autowired
-    RecebimentoRepository recebimentoRepository;
+	@Autowired
+	RecebimentoRepository recebimentoRepository;
 
-    @Autowired
-    ClienteRepository clienteRepository;
+	@Autowired
+	ClienteRepository clienteRepository;
 
-    @Autowired
-    VendaService vendaService;
+	@Autowired
+	VendaService vendaService;
 
-    public List<Cliente> consultarClientes(long idEmpresa) {
+	public List<Cliente> consultarClientes(long idEmpresa) {
 
-        List<Cliente> clientes = clienteRepository.pesquisarClientesPorRede(idEmpresa);
-        return clientes;
+		return clienteRepository.pesquisarClientesPorRede(idEmpresa);
 
-    }
+	}
 
-    public long pesquisarCodigoMaximoDeVendaDoFuncionario(Funcionario funcionario) {
-        return funcionarioRespository.pequisarMaximoIdVenda(funcionario.getId(), funcionario.getIdEmpresa());
-    }
+	public long pesquisarCodigoMaximoDeVendaDoFuncionario(Funcionario funcionario) {
+		return funcionarioRespository.pequisarMaximoIdVenda(funcionario.getId(), funcionario.getIdEmpresa());
+	}
 
-    public List<RecebimentoDTO> consultarRecebimentos(long id, long idNucleo, long idEmpresa) {
+	public List<RecebimentoDTO> consultarRecebimentos(long idNucleo, long idEmpresa) {
 
-        List<Venda> vendas = vendaService.pesquisarRecebimentosDoFuncionario(id, idNucleo, idEmpresa);
-        List<RecebimentoDTO> recebimentoDTOs = new ArrayList<RecebimentoDTO>();
-        for (Venda venda : vendas) {
-            recebimentoDTOs.add(RecebimentoDTO.transformaEmRecebimentoDTO(venda));
-        }
-        return recebimentoDTOs;
-    }
+		List<Venda> vendas = vendaService.pesquisarRecebimentosDoFuncionario(idNucleo, idEmpresa);
+		List<RecebimentoDTO> recebimentoDTOs = new ArrayList<>();
+		for (Venda venda : vendas) {
+			recebimentoDTOs.add(RecebimentoDTO.transformaEmRecebimentoDTO(venda));
+		}
+		return recebimentoDTOs;
+	}
 
-    public List<RecebimentoDTO> consultarRecebimentos(long id, long idNucleo, long idEmpresa, long idCliente) {
+	public List<RecebimentoDTO> consultarRecebimentos(long id, long idNucleo, long idEmpresa, long idCliente) {
 
-        List<Venda> vendas = vendaService.pesquisarRecebimentosDoCliente(id, idNucleo, idEmpresa, idCliente);
-        List<RecebimentoDTO> recebimentoDTOs = new ArrayList<RecebimentoDTO>();
-        for (Venda venda : vendas) {
-            recebimentoDTOs.add(RecebimentoDTO.transformaEmRecebimentoDTO(venda));
-        }
-        return recebimentoDTOs;
-    }
+		List<Venda> vendas = vendaService.pesquisarRecebimentosDoCliente(id, idNucleo, idEmpresa, idCliente);
+		List<RecebimentoDTO> recebimentoDTOs = new ArrayList<>();
+		for (Venda venda : vendas) {
+			recebimentoDTOs.add(RecebimentoDTO.transformaEmRecebimentoDTO(venda));
+		}
+		return recebimentoDTOs;
+	}
 
-    public Funcionario pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(double id, long idEmpresa) {
+	public Funcionario pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(double id, long idEmpresa) {
 
-        return Optional.ofNullable(funcionarioRespository.pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(id, idEmpresa))
-            .orElseThrow(() -> new MyResourceNotFoundException("Funcionario nao encontrado"));
+		return Optional
+				.ofNullable(funcionarioRespository.pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(id, idEmpresa))
+				.orElseThrow(() -> new MyResourceNotFoundException("Funcionario nao encontrado"));
 
-    }
+	}
 
-    public String obterSenha(Funcionario funcionario) {
-        return Optional.ofNullable(funcionario.getSenha()).orElseThrow(() -> new MyResourceNotFoundException("Funcionario sem senha"));
-    }
+	public String obterSenha(Funcionario funcionario) {
+		return Optional.ofNullable(funcionario.getSenha())
+				.orElseThrow(() -> new MyResourceNotFoundException("Funcionario sem senha"));
+	}
 
-    public long pesquisarCodigoMaximoDeReciboDoFuncionario(Funcionario funcionarioPesquisado) {
-        // TODO Auto-generated method stub
-        return funcionarioRespository.pesquisarMaximoIdRecibo(funcionarioPesquisado.getId(), funcionarioPesquisado.getIdEmpresa());
-    }
+	public long pesquisarCodigoMaximoDeReciboDoFuncionario(Funcionario funcionarioPesquisado) {
 
-    public void atualizarDataUltimaSincronizacao(double id, LocalDateTime dataUltimaSincronizacao) {
-        funcionarioRespository.atualizarDataUltimaSincronizacao(id, dataUltimaSincronizacao);
+		return funcionarioRespository.pesquisarMaximoIdRecibo(funcionarioPesquisado.getId(),
+				funcionarioPesquisado.getIdEmpresa());
+	}
 
-    }
+	public void atualizarDataUltimaSincronizacao(double id, LocalDateTime dataUltimaSincronizacao) {
+		funcionarioRespository.atualizarDataUltimaSincronizacao(id, dataUltimaSincronizacao);
+
+	}
 
 }

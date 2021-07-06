@@ -11,13 +11,12 @@ import com.br.tmchickendistributor.repository.ProdutoRepository;
 @Service
 public class ProdutoService {
 
-    @Autowired
-    ProdutoRepository produtoRepository;
+	@Autowired
+	ProdutoRepository produtoRepository;
 
-    public List<Produto> consultarProdutos(long idEmpresa, long idNucleo) {
+	public List<Produto> consultarProdutos(long idEmpresa, long idNucleo) {
 
-        List<Produto> produtos = produtoRepository.pesquisarProdutos(idEmpresa, idNucleo);
-        return produtos;
-    }
+		return produtoRepository.pesquisarProdutos(idEmpresa, idNucleo);
+	}
 
 }

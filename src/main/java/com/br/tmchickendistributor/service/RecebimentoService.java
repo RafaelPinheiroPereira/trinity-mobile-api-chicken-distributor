@@ -9,17 +9,17 @@ import com.br.tmchickendistributor.repository.RecebimentoRepository;
 @Service
 public class RecebimentoService {
 
-    @Autowired
-    RecebimentoRepository recebimentoRepository;
+	@Autowired
+	RecebimentoRepository recebimentoRepository;
 
-    public void salvar(Recebimento recebimento) {
-        recebimentoRepository.save(recebimento);
-    }
+	public void salvar(Recebimento recebimento) {
+		recebimentoRepository.save(recebimento);
+	}
 
-    public Recebimento consultarRecebimentoPorCodigoVendaCodigoFuncionario(Recebimento recebimento) {
-        // TODO Auto-generated method stub
-        return recebimentoRepository.consultarReciboPorCodigoVendaCodigoFuncionario(recebimento.getIdVenda(), recebimento.getIdFuncionario(),
-            recebimento.getIdRecibo());
-    }
+	public Recebimento consultarRecebimentoPorCodigoVendaCodigoFuncionario(Recebimento recebimento) {
+
+		return recebimentoRepository.consultarReciboPorCodigoVendaCodigoFuncionario(recebimento.getIdVenda(),
+				recebimento.getIdFuncionario(), recebimento.getIdRecibo());
+	}
 
 }

@@ -8,15 +8,15 @@ import com.br.tmchickendistributor.entity.Funcionario;
 @Service
 public class AutenticacaoService {
 
-    @Autowired
-    FuncionarioService funcionarioService;
+	@Autowired
+	FuncionarioService funcionarioService;
 
-    public boolean isSenhaValida(Funcionario funcionario, String senha) {
+	public boolean isSenhaValida(Funcionario funcionario, String senha) {
 
-        String senhaDoFuncionarioPesquisado = funcionarioService.obterSenha(funcionario);
+		String senhaDoFuncionarioPesquisado = funcionarioService.obterSenha(funcionario);
 
-        return senhaDoFuncionarioPesquisado.equals(senha) ? true : false;
+		return senhaDoFuncionarioPesquisado.equals(senha);
 
-    }
+	}
 
 }

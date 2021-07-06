@@ -1,6 +1,8 @@
 package com.br.tmchickendistributor.controller;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,73 +22,76 @@ import com.br.tmchickendistributor.service.RecebimentoService;
 
 public class ExportacaoController {
 
-    @Autowired
-    ExportacaoService exportacaoService;
+	private static final Logger LOGGER = Logger.getLogger(ExportacaoController.class.getName());
 
-    @Autowired
-    PedidoService pedidoService;
+	@Autowired
+	ExportacaoService exportacaoService;
 
-    @Autowired
-    RecebimentoService recebimentoService;
+	@Autowired
+	PedidoService pedidoService;
 
-    @PostMapping(value = "/pedidos")
-    public boolean exportarPedido(@RequestBody Exportacao exportacao) {
+	@Autowired
+	RecebimentoService recebimentoService;
 
-        try {
+	@PostMapping(value = "/pedidos")
+	public boolean exportarPedido(@RequestBody Exportacao exportacao) {
 
-            exportacao.getListaPedido().getPedidos().forEach(pedido -> {
+		try {
 
-                Optional<Pedido> optionalPedidoToSave = Optional.ofNullable(pedidoService.consultarPedidoPorCodigoVendaCodigoFuncionario(pedido));
+			exportacao.getListaPedido().getPedidos().forEach(pedido -> {
 
-                if (optionalPedidoToSave.isPresent()) {
+				Optional<Pedido> optionalPedidoToSave = Optional
+						.ofNullable(pedidoService.consultarPedidoPorCodigoVendaCodigoFuncionario(pedido));
 
-                    /** Realizar update */
-                    pedido.setId(optionalPedidoToSave.get().getId());
+				if (optionalPedidoToSave.isPresent()) {
 
-                    Optional<Integer> optionalCodigoMigrado = Optional.ofNullable(optionalPedidoToSave.get().getMigrado());
+					/** Realizar update */
+					pedido.setId(optionalPedidoToSave.get().getId());
 
-                    if (optionalCodigoMigrado.isPresent() && optionalCodigoMigrado.get().intValue() == 0) {
-                        pedidoService.salvar(pedido);
+					Optional<Integer> optionalCodigoMigrado = Optional
+							.ofNullable(optionalPedidoToSave.get().getMigrado());
 
-                    }
+					if (optionalCodigoMigrado.isPresent() && optionalCodigoMigrado.get().intValue() == 0) {
+						pedidoService.salvar(pedido);
 
-                }
-                /** Realizar insert */
-                else
-                    pedidoService.salvar(pedido);
+					}
 
-            });
+				}
+				/** Realizar insert */
+				else
+					pedidoService.salvar(pedido);
 
-            System.out.println(exportacao);
+			});
 
-            exportacao.getRecebimentos().forEach(recebimento -> {
+			exportacao.getRecebimentos().forEach(recebimento -> {
 
-                Optional<Recebimento> optionalRecebimentoToSave = Optional
-                    .ofNullable(recebimentoService.consultarRecebimentoPorCodigoVendaCodigoFuncionario(recebimento));
-                if (optionalRecebimentoToSave.isPresent()) {
+				Optional<Recebimento> optionalRecebimentoToSave = Optional.ofNullable(
+						recebimentoService.consultarRecebimentoPorCodigoVendaCodigoFuncionario(recebimento));
+				if (optionalRecebimentoToSave.isPresent()) {
 
-                    /** Realizar update */
-                    recebimento.setId(optionalRecebimentoToSave.get().getId());
+					/** Realizar update */
+					recebimento.setId(optionalRecebimentoToSave.get().getId());
 
-                    Optional<Integer> optionalCodigoMigrado = Optional.ofNullable(optionalRecebimentoToSave.get().getMigrado());
+					Optional<Integer> optionalCodigoMigrado = Optional
+							.ofNullable(optionalRecebimentoToSave.get().getMigrado());
 
-                    if (optionalCodigoMigrado.isPresent() && optionalCodigoMigrado.get().intValue() == 0) {
-                        recebimento.setMigrado(0);
-                        recebimentoService.salvar(recebimento);
+					if (optionalCodigoMigrado.isPresent() && optionalCodigoMigrado.get().intValue() == 0) {
+						recebimento.setMigrado(0);
+						recebimentoService.salvar(recebimento);
 
-                    }
+					}
 
-                } else {
-                    recebimento.setMigrado(0);
-                    recebimentoService.salvar(recebimento);
-                }
-            });
+				} else {
+					recebimento.setMigrado(0);
+					recebimentoService.salvar(recebimento);
+				}
+			});
 
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
-    }
+			return true;
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, e.getMessage());
+		}
+		return false;
+	}
 
 }

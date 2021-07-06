@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ListaPedido implements Serializable {
 
-    List<Pedido> pedidos;
+	private List<Pedido> pedidos;
 
 }

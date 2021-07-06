@@ -11,13 +11,11 @@ import com.br.tmchickendistributor.repository.PrecoRepository;
 @Service
 public class PrecoService {
 
-    @Autowired
-    PrecoRepository precoRepository;
+	@Autowired
+	PrecoRepository precoRepository;
 
-    public List<Preco> consultarPrecos(long idEmpresa, long idNucleo) {
-
-        List<Preco> precos = precoRepository.pesquisarPrecos(idEmpresa, idNucleo);
-        return precos;
-    }
+	public List<Preco> consultarPrecos(long idEmpresa, long idNucleo) {
+		return precoRepository.pesquisarPrecos(idEmpresa, idNucleo);
+	}
 
 }

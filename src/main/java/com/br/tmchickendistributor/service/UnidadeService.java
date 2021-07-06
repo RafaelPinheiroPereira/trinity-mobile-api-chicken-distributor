@@ -11,12 +11,11 @@ import com.br.tmchickendistributor.repository.UnidadeRepository;
 @Service
 public class UnidadeService {
 
-    @Autowired
-    UnidadeRepository unidadeRepository;
+	@Autowired
+	UnidadeRepository unidadeRepository;
 
-    public List<Unidade> consultarUnidadePorProdutoEPreco(long idEmpresa, long idNucleo) {
+	public List<Unidade> consultarUnidadePorProdutoEPreco(long idEmpresa, long idNucleo) {
+		return unidadeRepository.consultarUnidadePorProdutoEPreco(idEmpresa, idNucleo);
 
-        List<Unidade> unidades = unidadeRepository.consultarUnidadePorProdutoEPreco(idEmpresa, idNucleo);
-        return unidades;
-    }
+	}
 }

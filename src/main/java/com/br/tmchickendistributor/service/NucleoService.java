@@ -12,12 +12,12 @@ import com.br.tmchickendistributor.repository.NucleoRepository;
 @Service
 public class NucleoService {
 
-    @Autowired
-    NucleoRepository nucleoRepository;
+	@Autowired
+	NucleoRepository nucleoRepository;
 
-    public List<Nucleo> pesquisarNucleosAtivos(String cnpj, Date dataAtual) {
-        // TODO Auto-generated method stub
-        return nucleoRepository.pesquisarNucleoPorCNPJ(cnpj, dataAtual);
-    }
+	public List<Nucleo> pesquisarNucleosAtivos(String cnpj, Date dataAtual) {
+
+		return nucleoRepository.pesquisarNucleoPorCNPJ(cnpj, dataAtual);
+	}
 
 }

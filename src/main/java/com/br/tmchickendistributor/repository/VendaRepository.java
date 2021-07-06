@@ -15,7 +15,7 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
     @Query(value = "SELECT v.* FROM vendas v  "
         + "WHERE  v.ventot >v.venamo and  v.nuccod=?1 and v.empcod=?2",
         nativeQuery = true)
-    public List<Venda> pesquisarTodosRecebimentosDoFuncionario(long idNucleo, long idEmpresa);
+    public List<Venda> pesquisarRecebimentosPorEmpresaENucleo(long idNucleo, long idEmpresa);
 
     @Query(value = "SELECT v.* FROM vendas v  "
         + "WHERE  v.ventot >v.venamo and  v.nuccod=?1 and v.empcod=?2 and v.clicod=?3 and v.funcod=?4",

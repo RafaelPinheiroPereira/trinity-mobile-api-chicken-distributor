@@ -6,9 +6,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.NOT_FOUND) // Status - 404
 public class MyResourceNotFoundException extends RuntimeException {
 
-    public MyResourceNotFoundException(String message) {
-        super(message);
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MyResourceNotFoundException(String message) {
+		super(message);
+
+	}
 
 }

@@ -12,24 +12,25 @@ import com.br.tmchickendistributor.repository.VendaRepository;
 @Service
 public class VendaService {
 
-    @Autowired
-    VendaRepository vendaRepository;
+	@Autowired
+	VendaRepository vendaRepository;
 
-    public List<Venda> pesquisarRecebimentosDoFuncionario(long idFuncionario, long idNucleo, long idEmpresa) {
+	public List<Venda> pesquisarRecebimentosDoFuncionario(long idNucleo, long idEmpresa) {
 
-        return vendaRepository.pesquisarTodosRecebimentosDoFuncionario(idNucleo, idEmpresa);
+		return vendaRepository.pesquisarRecebimentosPorEmpresaENucleo(idNucleo, idEmpresa);
 
-    }
+	}
 
-    public List<Venda> pesquisarRecebimentosDoCliente(long idFuncionario, long idNucleo, long idEmpresa, long idCliente) {
+	public List<Venda> pesquisarRecebimentosDoCliente(long idFuncionario, long idNucleo, long idEmpresa,
+			long idCliente) {
 
-        return vendaRepository.pesquisarTodosRecebimentosDoCliente(idNucleo, idEmpresa, idCliente, idFuncionario);
+		return vendaRepository.pesquisarTodosRecebimentosDoCliente(idNucleo, idEmpresa, idCliente, idFuncionario);
 
-    }
+	}
 
-    public LocalDateTime pesquisarDataMaximaUltimaSincronizacao(double id, long idEmpresa) {
-        // TODO Auto-generated method stub
-        return vendaRepository.pesquisarDataDaUltimaSincronizacao(id, idEmpresa);
-    }
+	public LocalDateTime pesquisarDataMaximaUltimaSincronizacao(double id, long idEmpresa) {
+
+		return vendaRepository.pesquisarDataDaUltimaSincronizacao(id, idEmpresa);
+	}
 
 }

@@ -12,11 +12,11 @@ import com.br.tmchickendistributor.repository.DispositivoRepository;
 @Service
 public class DispositivoService {
 
-    @Autowired
-    DispositivoRepository dispositivoRepository;
+	@Autowired
+	DispositivoRepository dispositivoRepository;
 
-    public List<Dispositivo> pesquisarDispositivosAtivos(String mac, Date dataAtual) {
-        // TODO Auto-generated method stub
-        return dispositivoRepository.pesquisarDispositivosAtivos(mac, dataAtual);
-    }
+	public List<Dispositivo> pesquisarDispositivosAtivos(String mac, Date dataAtual) {
+
+		return dispositivoRepository.pesquisarDispositivosAtivos(mac, dataAtual);
+	}
 }

@@ -8,12 +8,12 @@ import com.br.tmchickendistributor.repository.PedidoRepository;
 @Service
 public class ExportacaoService {
 
-    @Autowired
-    PedidoService PedidoService;
-    @Autowired
-    ItemPedidoService itemPedidoService;
+	@Autowired
+	PedidoService pedidoService;
+	@Autowired
+	ItemPedidoService itemPedidoService;
 
-    @Autowired
-    PedidoRepository pedidoRepository;
+	@Autowired
+	PedidoRepository pedidoRepository;
 
 }

@@ -14,29 +14,29 @@ import com.br.tmchickendistributor.repository.EmpresaRepository;
 @Service
 public class ConfiguracaoService {
 
-    @Autowired
-    EmpresaRepository empresaRepository;
+	@Autowired
+	EmpresaRepository empresaRepository;
 
-    @Autowired
-    EmpresaService empresaService;
-    @Autowired
-    NucleoService nucleoService;
+	@Autowired
+	EmpresaService empresaService;
+	@Autowired
+	NucleoService nucleoService;
 
-    @Autowired
-    DispositivoService dispositivoService;
+	@Autowired
+	DispositivoService dispositivoService;
 
-    public List<Nucleo> pesquisarNucleosAtivos(String cnpj, Date dataAtual) {
-        return nucleoService.pesquisarNucleosAtivos(cnpj, dataAtual);
-    }
+	public List<Nucleo> pesquisarNucleosAtivos(String cnpj, Date dataAtual) {
+		return nucleoService.pesquisarNucleosAtivos(cnpj, dataAtual);
+	}
 
-    public List<Dispositivo> pesquisarDispositivosAtivos(String mac, Date dataAtual) {
-        // TODO Auto-generated method stub
-        return dispositivoService.pesquisarDispositivosAtivos(mac, dataAtual);
-    }
+	public List<Dispositivo> pesquisarDispositivosAtivos(String mac, Date dataAtual) {
 
-    public Empresa verificarAtivacaoDaEmpresa(String cnpj, Date dataAtual, String mac) {
+		return dispositivoService.pesquisarDispositivosAtivos(mac, dataAtual);
+	}
 
-        return empresaService.verificarStatusDaEmpresa(cnpj, dataAtual, mac);
-    }
+	public Empresa verificarAtivacaoDaEmpresa(String cnpj, Date dataAtual, String mac) {
+
+		return empresaService.verificarStatusDaEmpresa(cnpj, dataAtual, mac);
+	}
 
 }

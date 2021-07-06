@@ -26,57 +26,59 @@ import com.br.tmchickendistributor.service.VendaService;
 @RequestMapping(path = "api/importacoes")
 public class ImportacaoController {
 
-    @Autowired
-    PrecoService precoService;
+	@Autowired
+	PrecoService precoService;
 
-    @Autowired
-    FuncionarioService funcionarioService;
+	@Autowired
+	FuncionarioService funcionarioService;
 
-    @Autowired
-    UnidadeService unidadeService;
+	@Autowired
+	UnidadeService unidadeService;
 
-    @Autowired
-    ProdutoService produtoService;
+	@Autowired
+	ProdutoService produtoService;
 
-    @Autowired
-    ContaService contaService;
+	@Autowired
+	ContaService contaService;
 
-    @Autowired
-    TipoRecebimentoService tipoRecebimentoService;
+	@Autowired
+	TipoRecebimentoService tipoRecebimentoService;
 
-    @Autowired
-    VendaService vendaService;
+	@Autowired
+	VendaService vendaService;
 
-    @Autowired
-    ClienteGrupoService clienteGrupoService;
+	@Autowired
+	ClienteGrupoService clienteGrupoService;
 
-    @GetMapping("/funcionarios")
-    @ResponseBody
-    public ResponseEntity<Importacao> realizarImportacao(@RequestParam(value = "id") long id, @RequestParam(value = "idEmpresa") long idEmpresa,
-        @RequestParam(value = "idNucleo") long idNucleo) {
+	@GetMapping("/funcionarios")
+	@ResponseBody
+	public ResponseEntity<Importacao> realizarImportacao(@RequestParam(value = "id") long id,
+			@RequestParam(value = "idEmpresa") long idEmpresa, @RequestParam(value = "idNucleo") long idNucleo) {
 
-        Importacao importacao = new Importacao();
-        Funcionario funcionarioPesquisado = funcionarioService.pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(id, idEmpresa);
+		Importacao importacao = new Importacao();
+		Funcionario funcionarioPesquisado = funcionarioService.pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(id,
+				idEmpresa);
 
-        long maximoCodigoDeRecebimento = funcionarioService.pesquisarCodigoMaximoDeReciboDoFuncionario(funcionarioPesquisado);
-        LocalDateTime dataUltimaSincronizacao = vendaService.pesquisarDataMaximaUltimaSincronizacao(id, idEmpresa);
+		long maximoCodigoDeRecebimento = funcionarioService
+				.pesquisarCodigoMaximoDeReciboDoFuncionario(funcionarioPesquisado);
+		LocalDateTime dataUltimaSincronizacao = vendaService.pesquisarDataMaximaUltimaSincronizacao(id, idEmpresa);
 
-        funcionarioPesquisado.setMaxIdRecibo(maximoCodigoDeRecebimento);
-        funcionarioService.atualizarDataUltimaSincronizacao(id, dataUltimaSincronizacao);
-        funcionarioPesquisado.setDataUltimaSincronizacao(dataUltimaSincronizacao);
+		funcionarioPesquisado.setMaxIdRecibo(maximoCodigoDeRecebimento);
+		funcionarioService.atualizarDataUltimaSincronizacao(id, dataUltimaSincronizacao);
+		funcionarioPesquisado.setDataUltimaSincronizacao(dataUltimaSincronizacao);
 
-        importacao.setClientes(funcionarioService.consultarClientes(idEmpresa));
-        importacao.setPrecos(precoService.consultarPrecos(idEmpresa, idNucleo));
-        importacao.setProdutos(produtoService.consultarProdutos(idEmpresa, idNucleo));
-        importacao.setRecebimentosDTO(funcionarioService.consultarRecebimentos(id, idNucleo, idEmpresa));
+		importacao.setClientes(funcionarioService.consultarClientes(idEmpresa));
+		importacao.setPrecos(precoService.consultarPrecos(idEmpresa, idNucleo));
+		importacao.setProdutos(produtoService.consultarProdutos(idEmpresa, idNucleo));
+		importacao.setRecebimentosDTO(funcionarioService.consultarRecebimentos(idNucleo, idEmpresa));
 
-        importacao.setUnidades(unidadeService.consultarUnidadePorProdutoEPreco(idEmpresa, idNucleo));
-        importacao.setContas(contaService.getContas(idEmpresa, idNucleo));
-        importacao.setClientesGrupos(clienteGrupoService.getClientesGrupos(idEmpresa));
-        importacao.setFuncionario(funcionarioPesquisado);
+		importacao.setUnidades(unidadeService.consultarUnidadePorProdutoEPreco(idEmpresa, idNucleo));
+		importacao.setContas(contaService.getContas(idEmpresa, idNucleo));
+		importacao.setClientesGrupos(clienteGrupoService.getClientesGrupos(idEmpresa));
+		importacao.setFuncionario(funcionarioPesquisado);
 
-        return ResponseEntity.status(HttpStatus.OK).body(importacao);
+		return ResponseEntity.status(HttpStatus.OK).body(importacao);
 
-    }
+	}
 
 }

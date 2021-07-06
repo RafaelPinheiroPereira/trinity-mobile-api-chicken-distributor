@@ -11,13 +11,11 @@ import com.br.tmchickendistributor.repository.TipoRecebimentoRepository;
 @Service
 public class TipoRecebimentoService {
 
-    @Autowired
-    TipoRecebimentoRepository tipoRecebimentoRepository;
+	@Autowired
+	TipoRecebimentoRepository tipoRecebimentoRepository;
 
-    public List<TipoRecebimento> consultarTiposRecebimento() {
-
-        List<TipoRecebimento> tiposRecebimento = tipoRecebimentoRepository.findAll();
-        return tiposRecebimento;
-    }
+	public List<TipoRecebimento> consultarTiposRecebimento() {
+		return tipoRecebimentoRepository.findAll();
+	}
 
 }

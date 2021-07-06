@@ -60,6 +60,6 @@ public class Pedido implements Serializable {
     private long idNucleo;
 
     @Transient
-    List<ItemPedido> itens;
+    private List<ItemPedido> itens;
 
 }

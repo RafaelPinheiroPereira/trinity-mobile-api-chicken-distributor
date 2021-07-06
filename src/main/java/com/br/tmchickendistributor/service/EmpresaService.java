@@ -11,12 +11,12 @@ import com.br.tmchickendistributor.repository.EmpresaRepository;
 @Service
 public class EmpresaService {
 
-    @Autowired
-    EmpresaRepository empresaRespository;
+	@Autowired
+	EmpresaRepository empresaRespository;
 
-    public Empresa verificarStatusDaEmpresa(String cnpj, Date dataAtual, String mac) {
-        // TODO Auto-generated method stub
-        return empresaRespository.verificarStatusDaEmpresa(cnpj, dataAtual, mac);
-    }
+	public Empresa verificarStatusDaEmpresa(String cnpj, Date dataAtual, String mac) {
+
+		return empresaRespository.verificarStatusDaEmpresa(cnpj, dataAtual, mac);
+	}
 
 }

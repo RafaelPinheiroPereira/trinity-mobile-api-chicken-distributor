@@ -26,49 +26,49 @@ import com.br.tmchickendistributor.util.DataUtil;
 @RequestMapping(path = "api/configuracoes")
 public class ConfiguracaoController {
 
-    @Autowired
-    ConfiguracaoService configuracaoService;
+	@Autowired
+	ConfiguracaoService configuracaoService;
 
-    @GetMapping(value = "/ativada")
-    @ResponseBody
-    public ResponseEntity<?> verificarAtivacao(@RequestParam(value = "cnpj") String cnpj, @RequestParam(value = "mac") String mac)
-        throws ParseException {
-        Date dataAtual = DataUtil.formatarDateParaddMMyyyyhhmm(new Date(System.currentTimeMillis()));
+	@GetMapping(value = "/ativada")
+	@ResponseBody
+	public ResponseEntity<?> verificarAtivacao(@RequestParam(value = "cnpj") String cnpj,
+			@RequestParam(value = "mac") String mac) throws ParseException {
+		Date dataAtual = DataUtil.formatarDateParaddMMyyyyhhmm(new Date(System.currentTimeMillis()));
 
-        Optional<Empresa> optionalEmpresa = Optional.ofNullable(configuracaoService.verificarAtivacaoDaEmpresa(cnpj, dataAtual, mac));
+		Optional<Empresa> optionalEmpresa = Optional
+				.ofNullable(configuracaoService.verificarAtivacaoDaEmpresa(cnpj, dataAtual, mac));
 
-        if (optionalEmpresa.isPresent()) {
-            // acesso autorizado
+		if (optionalEmpresa.isPresent()) {
 
-            Empresa empresa = optionalEmpresa.get();
+			Empresa empresa = optionalEmpresa.get();
 
-            Optional<List<Nucleo>> optionalNucleos = Optional.ofNullable(configuracaoService.pesquisarNucleosAtivos(cnpj, dataAtual));
-            Optional<List<Dispositivo>> optionalDispositivos = Optional.ofNullable(configuracaoService.pesquisarDispositivosAtivos(mac, dataAtual));
+			Optional<List<Nucleo>> optionalNucleos = Optional
+					.ofNullable(configuracaoService.pesquisarNucleosAtivos(cnpj, dataAtual));
+			Optional<List<Dispositivo>> optionalDispositivos = Optional
+					.ofNullable(configuracaoService.pesquisarDispositivosAtivos(mac, dataAtual));
 
-            if (optionalNucleos.isPresent() && optionalDispositivos.get().size() > 0) {
-                empresa.setNucleos(optionalNucleos.get());
+			if (optionalNucleos.isPresent() && !optionalDispositivos.isEmpty()) {
+				empresa.setNucleos(optionalNucleos.get());
 
-            } else {
-                empresa.setNucleos(new ArrayList<Nucleo>());
-            }
+			} else {
+				empresa.setNucleos(new ArrayList<>());
+			}
 
-            if (optionalDispositivos.isPresent() && optionalDispositivos.get().size() > 0) {
+			if (optionalDispositivos.isPresent()) {
 
-                optionalDispositivos.get().forEach(dispositivo -> {
-                    dispositivo.setAtivo("true");
-                });
-                empresa.setDispositivos(optionalDispositivos.get());
-                empresa.setAtivo("true");
-                return new ResponseEntity<>(new Configuracao(empresa), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
+				optionalDispositivos.get().forEach(dispositivo -> dispositivo.setAtivo("true"));
+				empresa.setDispositivos(optionalDispositivos.get());
+				empresa.setAtivo("true");
+				return new ResponseEntity<>(new Configuracao(empresa), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}
 
-        } else {
-            // acesso nao autorizado
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+		} else {
+			// acesso nao autorizado
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 
-    }
+	}
 
 }
