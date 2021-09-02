@@ -18,6 +18,7 @@ import com.br.tmchickendistributor.service.ContaService;
 import com.br.tmchickendistributor.service.FuncionarioService;
 import com.br.tmchickendistributor.service.PrecoService;
 import com.br.tmchickendistributor.service.ProdutoService;
+import com.br.tmchickendistributor.service.RotaService;
 import com.br.tmchickendistributor.service.TipoRecebimentoService;
 import com.br.tmchickendistributor.service.UnidadeService;
 import com.br.tmchickendistributor.service.VendaService;
@@ -28,27 +29,22 @@ public class ImportacaoController {
 
 	@Autowired
 	PrecoService precoService;
-
 	@Autowired
 	FuncionarioService funcionarioService;
-
 	@Autowired
 	UnidadeService unidadeService;
-
 	@Autowired
 	ProdutoService produtoService;
-
 	@Autowired
 	ContaService contaService;
-
 	@Autowired
 	TipoRecebimentoService tipoRecebimentoService;
-
 	@Autowired
 	VendaService vendaService;
-
 	@Autowired
 	ClienteGrupoService clienteGrupoService;
+	@Autowired
+	RotaService rotaService;
 
 	@GetMapping("/funcionarios")
 	@ResponseBody
@@ -71,6 +67,7 @@ public class ImportacaoController {
 		importacao.setPrecos(precoService.consultarPrecos(idEmpresa, idNucleo));
 		importacao.setProdutos(produtoService.consultarProdutos(idEmpresa, idNucleo));
 		importacao.setRecebimentosDTO(funcionarioService.consultarRecebimentos(idNucleo, idEmpresa));
+		importacao.setRotas(rotaService.obterRotasDoVendedor(funcionarioPesquisado));
 
 		importacao.setUnidades(unidadeService.consultarUnidadePorProdutoEPreco(idEmpresa, idNucleo));
 		importacao.setContas(contaService.getContas(idEmpresa, idNucleo));

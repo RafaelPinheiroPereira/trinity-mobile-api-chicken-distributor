@@ -19,15 +19,14 @@ import lombok.NoArgsConstructor;
 @Data
 public class Conta implements Serializable {
 
-    @Id
-    @Column(name = "concod", nullable = false)
-    private String id;
-
-    @Column(name = "condes", nullable = false)
-    private String descricao;
-    @Column(name = "conage", nullable = false)
-    private String agencia;
-    @Column(name = "concon", nullable = false)
-    private String conta;
+	@Id
+	@Column(name = "concod", nullable = false)
+	private String id;
+	@Column(name = "condes", nullable = false)
+	private String descricao;
+	@Column(name = "conage", nullable = false)
+	private String agencia;
+	@Column(name = "concon", nullable = false)
+	private String numeroConta;
 
 }

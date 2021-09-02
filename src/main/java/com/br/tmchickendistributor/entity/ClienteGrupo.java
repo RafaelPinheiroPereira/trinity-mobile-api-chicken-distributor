@@ -19,15 +19,14 @@ import lombok.NoArgsConstructor;
 @Data
 public class ClienteGrupo implements Serializable {
 
-    private static final long serialVersionUID = -5835341501816588891L;
+	private static final long serialVersionUID = -5835341501816588891L;
 
-    @Id
-    @Column(name = "gpccod", nullable = false)
-    private double id;
-    @Column(name = "gpcnom", nullable = false)
-    private String nome;
-
-    @Column(name = "empcod", nullable = false)
-    private long idEmpresa;
+	@Id
+	@Column(name = "gpccod", nullable = false)
+	private double id;
+	@Column(name = "gpcnom", nullable = false)
+	private String nome;
+	@Column(name = "empcod", nullable = false)
+	private long idEmpresa;
 
 }

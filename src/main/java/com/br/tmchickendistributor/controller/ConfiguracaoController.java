@@ -31,7 +31,7 @@ public class ConfiguracaoController {
 
 	@GetMapping(value = "/ativada")
 	@ResponseBody
-	public ResponseEntity<?> verificarAtivacao(@RequestParam(value = "cnpj") String cnpj,
+	public ResponseEntity<Configuracao> verificarAtivacao(@RequestParam(value = "cnpj") String cnpj,
 			@RequestParam(value = "mac") String mac) throws ParseException {
 		Date dataAtual = DataUtil.formatarDateParaddMMyyyyhhmm(new Date(System.currentTimeMillis()));
 
@@ -65,7 +65,7 @@ public class ConfiguracaoController {
 			}
 
 		} else {
-			// acesso nao autorizado
+
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 

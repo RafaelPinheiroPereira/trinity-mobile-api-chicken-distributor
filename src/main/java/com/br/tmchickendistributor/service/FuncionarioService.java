@@ -15,6 +15,7 @@ import com.br.tmchickendistributor.entity.Venda;
 import com.br.tmchickendistributor.error.MyResourceNotFoundException;
 import com.br.tmchickendistributor.repository.ClienteRepository;
 import com.br.tmchickendistributor.repository.FuncionarioRepository;
+import com.br.tmchickendistributor.repository.LocalidadeRepository;
 import com.br.tmchickendistributor.repository.PedidoRepository;
 import com.br.tmchickendistributor.repository.RecebimentoRepository;
 
@@ -29,6 +30,8 @@ public class FuncionarioService {
 
 	@Autowired
 	RecebimentoRepository recebimentoRepository;
+	@Autowired
+	LocalidadeRepository localidadeRepository;
 
 	@Autowired
 	ClienteRepository clienteRepository;
@@ -38,7 +41,16 @@ public class FuncionarioService {
 
 	public List<Cliente> consultarClientes(long idEmpresa) {
 
-		return clienteRepository.pesquisarClientesPorRede(idEmpresa);
+		if (idEmpresa == 3L) {
+			List<Cliente> clientes = clienteRepository.pesquisarClientesPorRota(idEmpresa);
+			for (Cliente cliente : clientes) {
+				cliente.setLocalidade(localidadeRepository.consultarLocalidadeDoCliente(cliente.getId(), idEmpresa));
+
+			}
+			return clientes;
+		} else {
+			return clienteRepository.pesquisarClientesPorRede(idEmpresa);
+		}
 
 	}
 

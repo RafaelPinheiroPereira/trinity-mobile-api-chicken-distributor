@@ -14,11 +14,12 @@ import com.br.tmchickendistributor.error.MyResourceNotFoundException;
 @ControllerAdvice
 public class MyRestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(MyResourceNotFoundException.class)
-    public ResponseEntity<?> handlerResourceNotFoundException(MyResourceNotFoundException myResourceNotFoundException) {
-        ErrorResponse errorResponse = new ErrorResponse("Resource Not Found", myResourceNotFoundException.getMessage(), HttpStatus.NOT_FOUND.value(),
-            myResourceNotFoundException.getClass().getName());
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
-    }
+	@ExceptionHandler(MyResourceNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handlerResourceNotFoundException(
+			MyResourceNotFoundException myResourceNotFoundException) {
+		ErrorResponse errorResponse = new ErrorResponse("Resource Not Found", myResourceNotFoundException.getMessage(),
+				HttpStatus.NOT_FOUND.value(), myResourceNotFoundException.getClass().getName());
+		return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+	}
 
 }

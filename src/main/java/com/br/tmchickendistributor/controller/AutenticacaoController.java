@@ -20,34 +20,37 @@ import com.br.tmchickendistributor.service.VendaService;
 @RequestMapping(path = "api/autenticacoes")
 public class AutenticacaoController {
 
-    @Autowired
-    AutenticacaoService autenticacaoService;
+	@Autowired
+	AutenticacaoService autenticacaoService;
 
-    @Autowired
-    FuncionarioService funcionarioService;
+	@Autowired
+	FuncionarioService funcionarioService;
 
-    @Autowired
-    VendaService vendaService;
+	@Autowired
+	VendaService vendaService;
 
-    @GetMapping(value = "/funcionarios")
-    @ResponseBody
-    public ResponseEntity<?> autenticar(@RequestParam(value = "id") double id, @RequestParam(value = "senha") String senha,
-        @RequestParam(value = "idEmpresa") long idEmpresa) {
+	@GetMapping(value = "/funcionarios")
+	@ResponseBody
+	public ResponseEntity<Funcionario> autenticar(@RequestParam(value = "id") double id,
+			@RequestParam(value = "senha") String senha, @RequestParam(value = "idEmpresa") long idEmpresa) {
 
-        Funcionario funcionarioPesquisado = funcionarioService.pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(id, idEmpresa);
+		Funcionario funcionarioPesquisado = funcionarioService.pesquisarPorCodigoDoFuncionarioECodigoDaEmpresa(id,
+				idEmpresa);
 
-        if (autenticacaoService.isSenhaValida(funcionarioPesquisado, senha)) {
-            long maximoCodigoDeVenda = funcionarioService.pesquisarCodigoMaximoDeVendaDoFuncionario(funcionarioPesquisado);
-            long maximoCodigoDeRecebimento = funcionarioService.pesquisarCodigoMaximoDeReciboDoFuncionario(funcionarioPesquisado);
-            LocalDateTime dataUltimaSincronizacao = vendaService.pesquisarDataMaximaUltimaSincronizacao(id, idEmpresa);
-            funcionarioPesquisado.setMaxIdVenda(maximoCodigoDeVenda);
-            funcionarioPesquisado.setMaxIdRecibo(maximoCodigoDeRecebimento);
-            funcionarioService.atualizarDataUltimaSincronizacao(id, dataUltimaSincronizacao);
-            funcionarioPesquisado.setDataUltimaSincronizacao(dataUltimaSincronizacao);
-            return new ResponseEntity<>(funcionarioPesquisado, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		if (autenticacaoService.isSenhaValida(funcionarioPesquisado, senha)) {
+			long maximoCodigoDeVenda = funcionarioService
+					.pesquisarCodigoMaximoDeVendaDoFuncionario(funcionarioPesquisado);
+			long maximoCodigoDeRecebimento = funcionarioService
+					.pesquisarCodigoMaximoDeReciboDoFuncionario(funcionarioPesquisado);
+			LocalDateTime dataUltimaSincronizacao = vendaService.pesquisarDataMaximaUltimaSincronizacao(id, idEmpresa);
+			funcionarioPesquisado.setMaxIdVenda(maximoCodigoDeVenda);
+			funcionarioPesquisado.setMaxIdRecibo(maximoCodigoDeRecebimento);
+			funcionarioService.atualizarDataUltimaSincronizacao(id, dataUltimaSincronizacao);
+			funcionarioPesquisado.setDataUltimaSincronizacao(dataUltimaSincronizacao);
+			return new ResponseEntity<>(funcionarioPesquisado, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-    }
+	}
 
 }

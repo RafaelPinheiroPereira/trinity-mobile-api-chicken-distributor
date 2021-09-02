@@ -12,13 +12,17 @@ import lombok.Data;
 @Data
 public class Localidade {
 
-    @Id
-    @Column(name = "loccod")
-    private double id;
-    @Column(name = "locnom")
-    private String nome;
+	@Id
+	@Column(name = "loccod")
+	private double id;
 
-    @Column(name = "empcod")
-    private long idEmpresa;
+	@Column(name = "locnom")
+	private String nome;
+
+	@Column(name = "empcod")
+	private double idEmpresa;
+
+	@Column(name = "rotcod")
+	private long idRota;
 
 }

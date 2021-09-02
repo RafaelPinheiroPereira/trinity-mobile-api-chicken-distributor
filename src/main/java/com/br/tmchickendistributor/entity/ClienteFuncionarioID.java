@@ -11,18 +11,17 @@ import lombok.Data;
 @Data
 public class ClienteFuncionarioID implements Serializable {
 
-    /**
-     * 
-     */
+	/**
+	 * 
+	 */
 
-    private static final long serialVersionUID = -664886163053681970L;
+	private static final long serialVersionUID = -664886163053681970L;
 
-    @Column(name = "clicod")
-    private double codigoCliente;
-    @Column(name = "funcod")
-    private double codigoFuncionario;
-
-    @Column(name = "tprcod")
-    private double tprCod;
+	@Column(name = "clicod")
+	private double codigoCliente;
+	@Column(name = "funcod")
+	private double codigoFuncionario;
+	@Column(name = "tprcod")
+	private double tprCod;
 
 }
