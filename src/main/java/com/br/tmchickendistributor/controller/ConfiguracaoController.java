@@ -47,7 +47,7 @@ public class ConfiguracaoController {
 			Optional<List<Dispositivo>> optionalDispositivos = Optional
 					.ofNullable(configuracaoService.pesquisarDispositivosAtivos(mac, dataAtual));
 
-			if (optionalNucleos.isPresent() && !optionalDispositivos.isEmpty()) {
+			if (optionalNucleos.isPresent() && optionalDispositivos.isPresent()) {
 				empresa.setNucleos(optionalNucleos.get());
 
 			} else {
