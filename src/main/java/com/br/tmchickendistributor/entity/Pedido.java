@@ -19,47 +19,50 @@ import lombok.Data;
 @Data
 public class Pedido implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "venseq", nullable = false)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "venseq", nullable = false)
+	private long id;
 
-    @Column(name = "empcod", nullable = false)
-    private long idEmpresa;
+	@Column(name = "empcod", nullable = false)
+	private long idEmpresa;
 
-    @Column(name = "vencod", nullable = false)
-    private long idVenda;
+	@Column(name = "vencod", nullable = false)
+	private long idVenda;
 
-    @Column(name = "vendat")
-    private Date dataPedido;
+	@Column(name = "vendat")
+	private Date dataPedido;
 
-    @Column(name = "funcod")
-    private long codigoFuncionario;
+	@Column(name = "funcod")
+	private long codigoFuncionario;
 
-    @Column(name = "clicod")
-    private double codigoCliente;
+	@Column(name = "clicod")
+	private double codigoCliente;
 
-    @Column(name = "ventot")
-    private double valorTotal;
+	@Column(name = "ventot")
+	private double valorTotal;
 
-    @Column(name = "venamo")
-    private double valorAmortizado;
+	@Column(name = "venamo")
+	private double valorAmortizado;
 
-    @Column(name = "tprcod")
-    private double tipoRecebimento;
-    @Column(name = "venven")
-    private Date dataVencimento;
+	@Column(name = "tprcod")
+	private double tipoRecebimento;
+	@Column(name = "venven")
+	private Date dataVencimento;
 
-    @Column(name = "venmtc")
-    private String motivoCancelamento;
+	@Column(name = "venmtc")
+	private String motivoCancelamento;
 
-    @Column(name = "venmig", columnDefinition = "double default 0")
-    private Integer migrado;
+	@Column(name = "venmig", columnDefinition = "double default 0")
+	private Integer migrado;
 
-    @Column(name = "nuccod")
-    private long idNucleo;
+	@Column(name = "nuccod")
+	private long idNucleo;
 
-    @Transient
-    private List<ItemPedido> itens;
+	@Column(name = "venobs")
+	private String observacao;
+
+	@Transient
+	private List<ItemPedido> itens;
 
 }
