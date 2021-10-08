@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.br.tmchickendistributor.entity.Cliente;
 import com.br.tmchickendistributor.entity.ClienteGrupo;
+import com.br.tmchickendistributor.entity.ClienteVendedor;
 import com.br.tmchickendistributor.entity.Conta;
 import com.br.tmchickendistributor.entity.Funcionario;
 import com.br.tmchickendistributor.entity.Preco;
@@ -28,6 +29,8 @@ public class Importacao {
 	List<Conta> contas;
 	List<ClienteGrupo> clientesGrupos;
 	List<Rota> rotas;
+	List<ClienteVendedor> clientesVendedores;
+	List<Funcionario> funcionarios;
 
 	Funcionario funcionario;
 

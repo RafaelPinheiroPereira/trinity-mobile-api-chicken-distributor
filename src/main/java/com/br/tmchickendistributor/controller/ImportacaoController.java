@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.br.tmchickendistributor.entity.Funcionario;
 import com.br.tmchickendistributor.model.Importacao;
 import com.br.tmchickendistributor.service.ClienteGrupoService;
+import com.br.tmchickendistributor.service.ClienteVendedorService;
 import com.br.tmchickendistributor.service.ContaService;
 import com.br.tmchickendistributor.service.FuncionarioService;
 import com.br.tmchickendistributor.service.PrecoService;
@@ -46,6 +47,9 @@ public class ImportacaoController {
 	@Autowired
 	RotaService rotaService;
 
+	@Autowired
+	ClienteVendedorService clienteVendedorService;
+
 	@GetMapping("/funcionarios")
 	@ResponseBody
 	public ResponseEntity<Importacao> realizarImportacao(@RequestParam(value = "id") long id,
@@ -72,6 +76,8 @@ public class ImportacaoController {
 		importacao.setUnidades(unidadeService.consultarUnidadePorProdutoEPreco(idEmpresa, idNucleo));
 		importacao.setContas(contaService.getContas(idEmpresa, idNucleo));
 		importacao.setClientesGrupos(clienteGrupoService.getClientesGrupos(idEmpresa));
+		importacao.setClientesVendedores(clienteVendedorService.pesquisarClienteVendedorPorIdEmpresa(idEmpresa));
+		importacao.setFuncionarios(funcionarioService.pesquisarFuncionariosDaEmpresa(idEmpresa));
 		importacao.setFuncionario(funcionarioPesquisado);
 
 		return ResponseEntity.status(HttpStatus.OK).body(importacao);

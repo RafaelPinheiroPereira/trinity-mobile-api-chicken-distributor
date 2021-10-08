@@ -102,4 +102,7 @@ public class FuncionarioService {
 
 	}
 
+	public List<Funcionario> pesquisarFuncionariosDaEmpresa(long idEmpresa) {
+		return funcionarioRespository.pesquisarFuncionarPorIdEmpresa(idEmpresa);
+	}
 }
